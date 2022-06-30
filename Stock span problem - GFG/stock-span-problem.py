@@ -7,12 +7,11 @@ class Solution:
     def calculateSpan(self,a,n):
         out=[]
         s=[]
-        # inital
-        if len(s)==0:
-            out.append(1)
-    
-        s.append((a[0],0))
-        for i in range(1,len(a)):
+
+        for i in range(0,len(a)):
+             # inital
+            if len(s)==0:
+                out.append(1)
             if len(s)>0 and a[i]<s[-1][0]:
                 out.append(abs(i-s[-1][1]))
                 
