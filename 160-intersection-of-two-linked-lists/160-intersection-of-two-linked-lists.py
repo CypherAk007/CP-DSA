@@ -6,17 +6,34 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        l1=headA
-        l2=headB
-        # use dict store l1 address values and itrate l2 and find it in d if present return true
-        d={}
-        while(l1):
-            d[l1]=l1.val
-            l1=l1.next
-        # print(d)
-        while(l2):
-            if l2 in d:
-                return l2
-            l2=l2.next
-        return None
+#         if headA==None or headB==None:
+#             return None
+        
+#         a=headA
+#         b=headB
+#         # return if a==b else if only a==None start it fm b and vice
+#         while(a is not b):
+#             if a==None:
+#                 a=headB
+#             if b==None:
+#                 b=headA
+#             a=a.next
+#             b=b.next
+            
+#         return a
+
+
+        if headA is None or headB is None:
+            return None
+
+        pa = headA # 2 pointers
+        pb = headB
+
+        while pa is not pb:
+            # if either pointer hits the end, switch head and continue the second traversal, 
+            # if not hit the end, just move on to next
+            pa = headB if pa is None else pa.next
+            pb = headA if pb is None else pb.next
+
+        return pa # only 2 ways to get out of the loop, they meet or the both hit the end=None
             
