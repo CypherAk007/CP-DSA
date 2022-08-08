@@ -6,40 +6,34 @@
 #         self.right = right
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        # All in one code
-        s=[]
-        s.append([root,1])
-        pre=[]
-        inorder=[]
-        post=[]
-        if root ==None:return 
-        
-        while(len(s)!=0):
-            it = s.pop()
-            # this is part of pre
-            # we inc 1 to 2
-            # pushthe left side of the tree
-            if (it[1]==1):
-                pre.append(it[0].val)
-                it[1]+=1
-                s.append(it)
-                
-                if it[0].left!=None:
-                    s.append([it[0].left,1])
-            # this is part of in
-            # we inc 2 to 3
-            # pushthe right side of the tree  
-            elif (it[1]==2):
-                inorder.append(it[0].val)
-                it[1]+=1
-                s.append(it)
-                
-                if it[0].right!=None:
-                    s.append([it[0].right,1])
-            # dont push it back again    
+        # Rt l r - Morris Traversal
+        preorder=[]
+        cur=root
+        while(cur!=None):
+            # case1->if no left
+            if cur.left==None:
+                preorder.append(cur.val)
+                cur=cur.right
+            # case2-> if left exist visit the last guy of left subtree
             else:
-                
-                post.append(it[0].val)
-        return pre
-        
+                # goto left
+                prev=cur.left
+                # now goto right most if exist and not pointing to cur
+                while(prev.right and prev.right!=cur):
+                    prev=prev.right
+                # c-1->if prev.right is null make thread point to cur
+                if prev.right==None:
+                    prev.right=cur
+                    # just before starting the thread traversal print the root
+                    preorder.append(cur.val)
+                    # After making thread start traversal
+                    cur=cur.left
+                else:#C2-> if prev.right is pointing to cur
+                    # remove the thread and make cur goto right
+                    prev.right=None
+                    # print the root val
+                    
+                    cur=cur.right
+                    
+        return preorder
         
