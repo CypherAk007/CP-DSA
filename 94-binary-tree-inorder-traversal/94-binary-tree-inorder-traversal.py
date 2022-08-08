@@ -6,20 +6,33 @@
 #         self.right = right
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        # l Rt r - itrative
+        # l Rt r - Morris Traversal
         inorder=[]
-        stack=[]
-        node=root
-        while(True):
-            if node!=None:
-                stack.append(node)
-                node=node.left
+        cur=root
+        while(cur!=None):
+            # case1->if no left
+            if cur.left==None:
+                inorder.append(cur.val)
+                cur=cur.right
+            # case2-> if left exist visit the last guy of left subtree
             else:
-                if len(stack)==0:
-                    break
-                node=stack.pop()
-                inorder.append(node.val)
-                node=node.right
+                # goto left
+                prev=cur.left
+                # now goto right most if exist and not pointing to cur
+                while(prev.right and prev.right!=cur):
+                    prev=prev.right
+                # c-1->if prev.right is null make thread point to cur
+                if prev.right==None:
+                    prev.right=cur
+                    # After making thread start traversal
+                    cur=cur.left
+                else:#C2-> if prev.right is pointing to cur
+                    # remove the thread and make cur goto right
+                    prev.right=None
+                    # print the root val
+                    inorder.append(cur.val)
+                    cur=cur.right
+                    
         return inorder
         
         
