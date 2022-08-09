@@ -5,29 +5,40 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def __init__(self):
+        self.first=None
+        self.prev=TreeNode(float('-inf'))
+        self.middle=None
+        self.last=None
+        
     def recoverTree(self, root: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
-        a=self.inorder(root)
-        a.sort()
-        i=[0]
-        self.helper(root,a,i)
-        
+        self.inorder(root)
+        if self.first and self.last: #if they are non adjecent
+            self.first.val,self.last.val=self.last.val,self.first.val
+        elif self.first and self.middle:
+            self.first.val,self.middle.val=self.middle.val,self.first.val
+            
     def inorder(self,root):
         if root==None:
-            return []
-        lst=[]
-        lst+=self.inorder(root.left)
-        lst.append(root.val)
-        lst+=self.inorder(root.right)
-        return lst
-    
-    def helper(self,root,a,i):
-        if root==None:
             return 
-        self.helper(root.left,a,i)
-        root.val=a[i[0]]
-        i[0]+=1
-        self.helper(root.right,a,i)
         
+        self.inorder(root.left)
+        
+        if self.prev!=None and (root.val<self.prev.val):
+            # if this is first violation,mark these two nodes as 
+            # first and middle
+            if self.first==None:
+                self.first=self.prev
+                self.middle=root
+            else:
+                self.last=root
+                
+        # mark this node as previous
+        self.prev=root
+        
+        self.inorder(root.right)
+        
+    
