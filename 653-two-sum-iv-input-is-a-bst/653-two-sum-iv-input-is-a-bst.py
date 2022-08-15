@@ -4,26 +4,52 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+class BSTIterator:
+    def __init__(self, root,isReverse=True):
+        self.s=[]
+        self.reverse=isReverse
+        self.pushAll(root)
+        
+    def next(self) -> int:
+        tempNode=self.s.pop()
+        if self.reverse==False:
+            self.pushAll(tempNode.right)
+        else:
+            self.pushAll(tempNode.left)
+        return tempNode.val
+
+    def hasNext(self) -> bool:
+        if len(self.s)!=0:
+            return True
+        else:
+            return False
+        
+    def pushAll(self,root):
+        while(root!=None):
+            self.s.append(root)
+            if self.reverse==True:
+                root=root.right
+            else:
+                root=root.left
+            
 class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        # Brutefroce convert to inorder and apply 2ptr
-        lst=self.inorder(root)
-        i=0
-        j=len(lst)-1
-        while i<j:
-            if lst[i]+lst[j]==k:
-                return True
-            if k<lst[i]+lst[j]:
-                j-=1
-            else:
-                i+=1
-        return False
-            
-    def inorder(self,root):
         if root==None:
-            return []
-        lst=[]
-        lst+=self.inorder(root.left)
-        lst.append(root.val)
-        lst+=self.inorder(root.right)
-        return lst
+            return False
+        # This is for next
+        l=BSTIterator(root,False)
+        # before
+        r=BSTIterator(root,True)
+        
+        i=l.next()
+        j=r.next() # ==r.before()
+        
+        while(i<j):
+            if i+j==k:
+                return True
+            elif (i+j<k):
+                i=l.next()
+            else:
+                j=r.next()
+        return False
+    
