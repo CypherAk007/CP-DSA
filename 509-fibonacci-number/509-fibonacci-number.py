@@ -1,13 +1,16 @@
 class Solution:
-    # memoization(topdown) - Tc=O(n) linearpattern Sc=O(n)+O(n)[rec stack+dp array]
+    # Tabulation(BottomUp) - Tc=O(n)  Sc=O(n)[dp array]
     def fib(self, n: int) -> int:
-        dp=[-1]*(n+1)
+        dp=[-1]*(n+1+2)
         # print(dp)
         return self.helper(n,dp)
     def helper(self,n,dp):
-        if n<=1:
-            return n
-        if dp[n]!=-1:
-            return dp[n]
-        dp[n] = self.helper(n-1,dp)+self.helper(n-2,dp)
+        # base case
+        dp[0]=0
+        dp[1]=1
+        
+        # rec relation
+        for i in range(2,n+1):
+            dp[i]=dp[i-1]+dp[i-2]
+            
         return dp[n]
