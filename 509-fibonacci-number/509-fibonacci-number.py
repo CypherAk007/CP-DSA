@@ -1,16 +1,18 @@
 class Solution:
-    # Tabulation(BottomUp) - Tc=O(n)  Sc=O(n)[dp array]
+    # Tabulation(BottomUp)+Space Optimized - Tc=O(n)  Sc=O(1)
     def fib(self, n: int) -> int:
-        dp=[-1]*(n+1+2)
-        # print(dp)
-        return self.helper(n,dp)
-    def helper(self,n,dp):
+        return self.helper(n)
+    def helper(self,n):
+        prev2=0
+        prev=1
         # base case
-        dp[0]=0
-        dp[1]=1
-        
-        # rec relation
+        if n==0:
+            return prev2
+        if n==1:
+            return prev
         for i in range(2,n+1):
-            dp[i]=dp[i-1]+dp[i-2]
-            
-        return dp[n]
+            curi=prev+prev2
+            prev2=prev
+            prev=curi
+        return prev
+        
