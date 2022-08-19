@@ -2,28 +2,40 @@ class Solution:
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
         r=len(matrix)
         c=len(matrix[0])
-        mini=float('inf')
-        # as we have varible starting point we check 
-        # for all the values in the last row and take the min
-        dp=[[-1]*c for i in range(r)]
-        for j in range(c):
-            ans= self.helper(r-1,j,matrix,dp)
-            mini=min(mini,ans)
-        return mini
+        dp=[[0]*c for i in range(r)]
+        
+        return self.helper(matrix,dp)
+      
     
     # Using basic recursion + memoization
-    def helper(self,i,j,matrix,dp):
-        if j<0 or j>=len(matrix[0]): # avoid the diagonal overflow
-            return float('inf')
+    def helper(self,matrix,dp):
+        n=len(matrix)
+        m=len(matrix[0])
+        # bc
+        for j in range(m):
+            dp[0][j]=matrix[0][j]
         
-        if i==0:
-            return matrix[0][j]#what ever is there on the jth col return
+        for i in range(1,n):
+            for j in range(0,m):
+                straight=matrix[i][j]+dp[i-1][j]
+                
+                leftdiag=matrix[i][j]
+                if j-1>=0:
+                    leftdiag+=dp[i-1][j-1]
+                else:
+                    leftdiag=float('inf')
+                    
+                rightdiag=matrix[i][j]
+                if j+1<m:
+                    rightdiag+=dp[i-1][j+1]
+                else:
+                    rightdiag=float('inf')
+                    
+                dp[i][j]=min(straight,min(leftdiag,rightdiag))
         
-        if dp[i][j]!=-1:
-            return dp[i][j]
-        
-        straight=matrix[i][j]+self.helper(i-1,j,matrix,dp)
-        leftdiag=matrix[i][j]+self.helper(i-1,j-1,matrix,dp)
-        rightdiag=matrix[i][j]+self.helper(i-1,j+1,matrix,dp)
-        dp[i][j]=min(straight,min(leftdiag,rightdiag))
-        return dp[i][j]
+        mini=float('inf')
+        for j in range(0,m):
+            mini=min(mini,dp[n-1][j])
+            
+        return mini
+    
