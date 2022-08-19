@@ -1,17 +1,21 @@
 class Solution:
-    # Basic recursion
     
     def uniquePaths(self, r: int, c: int) -> int:
-        dp=[[-1]*c for i in range(r)]
-        return self.helper(r-1,c-1,dp)
+        dp=[[0]*c for i in range(r)]
+        return self.helper(r,c,dp)
+    # Tabulation
     def helper(self,r,c,dp):
-        if r==0 and c==0:
-            return 1
-        if r<0 or c<0:
-            return 0
-        if dp[r][c]!=-1:
-            return dp[r][c]
-        left = self.helper(r-1,c,dp)
-        right = self.helper(r,c-1,dp)
-        dp[r][c]=left+right
-        return dp[r][c]
+        for i in range(0,r):
+            for j in range(0,c):
+                if i==0 and j==0:
+                    dp[i][j]=1
+                else:
+                    up=0
+                    left=0
+                    if i>0:
+                        up=dp[i-1][j]
+                    if j>0:
+                        left=dp[i][j-1]
+                    dp[i][j]=up+left
+        return dp[r-1][c-1]
+        
