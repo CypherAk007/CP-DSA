@@ -24,3 +24,22 @@ class Solution:
           p=1+self.cchelper(idx,t-coins[idx],coins,dp)
         dp[idx][t]=min(p,np)
         return dp[idx][t]
+    
+    def cchelperTab(self,idx,t,coins,dp):
+        # bc
+        n=len(coins)
+        for T in range(0,t+1):
+            if T % coins[0]==0:
+                dp[0][T]=T//nums[0]
+            else:
+                dp[0][T]=float('inf')
+        
+        for ind in range(n):
+            for T in range(0,target+1):
+                np=0+dp[idx-1][t]
+                p=float('inf')
+                if coins[idx]<=t:
+                    p=1+dp[idx][t-coins[idx]]
+                dp[idx][t]=min(p,np)
+        
+        return dp[n-1][t]
