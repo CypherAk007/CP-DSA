@@ -1,8 +1,8 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         n=len(coins)
-        dp=[[-1]*(amount+1) for i in range(n)]
-        x=self.cchelper(n-1,amount,coins,dp)
+        dp=[[0]*(amount+1) for i in range(n)]
+        x=self.cchelperTab(n-1,amount,coins,dp)
         if x==float('inf'):
             return -1
         return x
@@ -30,16 +30,20 @@ class Solution:
         n=len(coins)
         for T in range(0,t+1):
             if T % coins[0]==0:
-                dp[0][T]=T//nums[0]
+                dp[0][T]=T//coins[0]
             else:
                 dp[0][T]=float('inf')
         
-        for ind in range(n):
-            for T in range(0,target+1):
-                np=0+dp[idx-1][t]
+        for ind in range(1,n):
+            
+            for T in range(1,t+1):
+                
+                np=0+dp[ind-1][T]
+                
                 p=float('inf')
-                if coins[idx]<=t:
-                    p=1+dp[idx][t-coins[idx]]
-                dp[idx][t]=min(p,np)
+                if coins[ind]<=T:
+                    p=1+dp[ind][T-coins[ind]]
+                    
+                dp[ind][T]=min(p,np)
         
         return dp[n-1][t]
