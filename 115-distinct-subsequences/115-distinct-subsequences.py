@@ -49,9 +49,9 @@ class Solution:
         # BC
         for i in range(0,n+1):
             dp[i][0]=1 
-        # fm 1->m+1 cause ith loop runs fm dp[0][0]=1 and jth also dp[0][0]=0 overlap
-        for j in range(1,m+1): 
-            dp[0][j]=0
+        # fm 1->m+1 cause ith loop runs fm dp[0][0]=1 and jth also dp[0][0]=0 overlap or better ommit this  
+        # for j in range(1,m+1): 
+        #     dp[0][j]=0
         
         for i in range(1,n+1):
             for j in range(1,m+1):
