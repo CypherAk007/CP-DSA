@@ -17,7 +17,8 @@ class Solution:
             return dp[i][j]
         
         if s1[i-1]==s2[j-1]:
-            return 0+self.helper(i-1,j-1,s1,s2,dp)
+            dp[i][j]=0+self.helper(i-1,j-1,s1,s2,dp)
+            return dp[i][j] 
         else:
             c1=1+self.helper(i,j-1,s1,s2,dp) #ins
             c2=1+self.helper(i-1,j,s1,s2,dp) #del
