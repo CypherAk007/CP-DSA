@@ -8,7 +8,9 @@ class Solution:
         
         # return self.helperTabM2(nums,n)
         
-        return self.helperTabM2PrintLIS(nums,n)
+        # return self.helperTabM2PrintLIS(nums,n)
+        
+        return self.helperBS(nums,n)
     
 
     def helper(self,idx,prev_idx,nums,n,dp):
@@ -96,3 +98,33 @@ class Solution:
         temp.reverse()
         print(temp)
         return maxi
+    
+    # --------------------------------------------------------------
+    def bs(self,arr,t):
+        n=len(arr)
+        l=0
+        h=n-1
+        c=0
+        while(l<=h):
+            c+=1 
+            mid=l+(h-l)//2
+            if t==arr[mid]:
+                return mid
+            if t<arr[mid]:
+                h=mid-1
+            else:
+                l=mid+1 
+
+        return l
+    
+    def helperBS(self,nums,n):
+        temp=[]
+        temp.append(nums[0])
+        for i in range(1,n):
+            if nums[i]>temp[-1]:
+                temp.append(nums[i])
+            else:
+                idx=self.bs(temp,nums[i])
+                temp[idx]=nums[i]
+        return len(temp)
+                
