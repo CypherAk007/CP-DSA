@@ -16,11 +16,22 @@ class Solution:
         for i in range(V):
             if vis[i]==0:
                 c+=1
-                self.dfs(i,adjLs,vis)
+                self.bfs(i,adjLs,vis)
         return c
         
     def dfs(self,node,adjLs,vis):
         vis[node]=1
         for i in adjLs[node]:
             if vis[i]==0:
-                self.dfs(i,adjLs,vis)
+                self.dfs(i,adjLs,vis) 
+    def bfs(self,node,adjLs,vis):
+        q=[]
+        q.append(node)
+        vis[node]=1
+        while(q):
+            val=q.pop(0)
+            for i in adjLs[val]:
+                if vis[i]==0:
+                    q.append(i)
+                    vis[i]=1
+            
