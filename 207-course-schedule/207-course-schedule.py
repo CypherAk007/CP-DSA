@@ -29,6 +29,6 @@ class Solution:
                 if indegree[i]==0:
                     q.append(i)
                     
-        if len(topo)==V:return topo
-        return []
+        if len(topo)==V:return True
+        return False
         
