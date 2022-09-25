@@ -33,7 +33,7 @@ class Solution:
                     word[i]=chr(ch)
 
                     # if the word exists in the dict and not visited
-                    if tuple(word) in d and d[tuple(word)]!=1:
+                    if tuple(word) in d :
                         d.pop(tuple(word))
                         x=word[:]
                         q.append([x,steps+1])
