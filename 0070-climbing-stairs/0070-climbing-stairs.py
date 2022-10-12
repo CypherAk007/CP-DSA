@@ -1,10 +1,20 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        dp=[-1]*(n+1+1)
-        return self.helper(n,dp)
-    def helper(self,n,dp):
-        dp[0]=1
-        dp[1]=1
+        return self.helper(n)
+    
+    # SPACE OPTIMIZED SOL
+    def helper(self,n):
+        prev2=1
+        prev=1
+        # bc
+        if n==0 :
+            return prev2
+        if n==1:
+            return prev
+        
         for i in range(2,n+1):
-            dp[i]=dp[i-1]+dp[i-2]
-        return dp[n]
+            cur=prev+prev2
+            prev2=prev
+            prev=cur
+        return prev
+        
