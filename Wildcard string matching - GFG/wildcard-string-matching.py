@@ -4,8 +4,9 @@ class Solution:
     def match(self, wild, pattern):
         # code here
         # recursive sol
-        return self.helper(len(wild),len(pattern),wild,pattern)
-    def helper(self,i,j,s1,s2):
+        dp=[[-1]*(len(pattern)+1) for i in range(len(wild)+1)]
+        return self.helper(len(wild),len(pattern),wild,pattern,dp)
+    def helper(self,i,j,s1,s2,dp):
         # bc
         if i==0 and j==0:
             return True
@@ -17,13 +18,16 @@ class Solution:
                     return True
                 else:
                     return False
-        
+        if dp[i][j]!=-1:
+            return dp[i][j]
+            
         if s1[i-1]==s2[j-1] or s1[i-1]=='?':
-            return self.helper(i-1,j-1,s1,s2)
+            dp[i][j]= self.helper(i-1,j-1,s1,s2,dp)
+            return dp[i][j]
         
         if s1[i-1]=='*':
-            return self.helper(i-1,j,s1,s2) or self.helper(i,j-1,s1,s2)
-        
+            dp[i][j]= self.helper(i-1,j,s1,s2,dp) or self.helper(i,j-1,s1,s2,dp)
+            return dp[i][j]
         return False
         
 
