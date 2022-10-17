@@ -9,45 +9,22 @@ class Solution:
         '''
         
         #code here
-        res=[]
-        vis=[0]*n
-        for i in range(n):
-            if vis[i]==0:
-                vis[i]=1
-                temp=[]
-                temp.append(words[i])
-                d=self.makedict(words[i])
-                c=len(d)
-                # print(d,c)
-                for j in range(i+1,n):
-                    if self.checkanagram(words[j],c,d.copy()):
-                        temp.append(words[j])
-                        vis[j]=1
-                    # print(words[i],words[j],temp)
-                res.append(temp)
-                
-        return res
-    
-    def makedict(self,word):
         d={}
-        for i in range(len(word)):
-            if word[i] in d:
-                d[word[i]]+=1 
+        for i in range(len(words)):
+            x=self.sortandreturn(words[i])
+            if x in d:
+                d[x].append(words[i])
             else:
-                d[word[i]]=1 
-        return d
-        
-    def checkanagram(self,w,c,d):
-        for i in range(len(w)):
-            if w[i] in d:
-                d[w[i]]-=1
-                if d[w[i]]==0:
-                    c-=1 
-        if c==0:
-            return True
-        else:
-            return False
-            
+                d[x]=[words[i]]
+        res=[]
+        for i in sorted(d):
+            res.append(d[i])
+        return res
+                
+    def sortandreturn(self,w):
+        temp=list(w)
+        temp.sort()
+        return ''.join(temp)
             
             
 #{ 
