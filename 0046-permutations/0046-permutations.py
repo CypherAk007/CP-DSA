@@ -1,18 +1,23 @@
-# from copy import copy
+from copy import copy
 class Solution:
     def permute(self, nums):
-        result=[]
-        # base case
-        if len(nums)==1:
-            return [nums[:]]
+        return self.helper(nums)
+    
+    def helper(self,nums):
+        # bc
+        if len(nums)==0:
+            return [[]]
         
-        for i in range(len(nums)):
-            n=nums.pop(0)
-            perms=self.permute(nums)
-            
-            for perm in perms:
-                perm.append(n)
+        ans=[]
+        for i in range(0,len(nums)):
+            nums2=[]
+            for j in range(0,len(nums)):
+                if i!=j:
+                    nums2.append(nums[j])
+            v=self.helper(nums2)
+            for a in v:
+                a.append(nums[i])
+                ans.append(a)
                 
-            result+=perms
-            nums.append(n)
-        return result
+        return ans
+    
