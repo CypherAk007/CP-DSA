@@ -13,7 +13,11 @@ class Solution:
         
     def rotatedbs(self,arr,lo,hi,n):
         while(lo<=hi):
-            mid=lo+(hi-lo//2)
+            # this case is added if we getsorted on both sides
+            if arr[lo]<=arr[hi]:
+                return lo
+                
+            mid=(lo+hi)//2
             nxt=(mid+1)%n
             prev=(mid+n-1)%n
             # if mid <mid+1 and <mid-1 then its min ele
