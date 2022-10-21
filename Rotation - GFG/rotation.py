@@ -3,8 +3,8 @@ class Solution:
     def findKRotation(self,arr,  n):
         # code here
         # 1->check if arr is rotated or not
-        if arr[0]<=arr[n-1]:
-            return 0 
+        # if arr[0]<=arr[n-1]:
+        #     return 0 
         
         # 2->find the index of min ele -> no.of rotations
         # find min ele with help of bs
