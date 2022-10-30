@@ -6,15 +6,18 @@ class Solution:
         #Your code here
         lo=0
         hi=N-1
+        res=-1
         while(lo<=hi):
             mid=lo+(hi-lo)//2
             if A[mid]==X:
-                return mid
+                res=mid
+                return res
             if X<A[mid]:
                 hi=mid-1
             else:
+                res=mid
                 lo=mid+1 
-        return hi
+        return res
         
 
 
