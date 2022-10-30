@@ -13,22 +13,13 @@ class Solution:
     	    cnt=0
     	    for i in range(R):
     	        cnt+=self.bsr(matrix[i],R,C,mid)
-    	   # lessele=self.findSmallerEle(matrix,R,C,mid)
-                	   
     	    if cnt<=((R*C)//2):
     	        lo=mid+1 
     	    else:
     	        hi=mid-1 
         return lo
     	
-    
-    def findSmallerEle(self,a,R,C,t): #ceil of target and gives no. of ele less than t inc. itself
-        c=0
-        for i in range(R):
-            c+=self.bsr(a[i],R,C,t)
-        return c
-        
-    def bsr(self,a,R,C,t):
+    def bsr(self,a,R,C,t):#ceil of target and gives no. of ele less than t inc. itself
         lo=0
         hi=C-1
         while(lo<=hi):
