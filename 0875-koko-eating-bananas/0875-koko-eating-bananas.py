@@ -2,18 +2,16 @@ class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         lo=1
         hi=max(piles)
-        res=0
-        while(lo<hi):
+        res=hi
+        while(lo<=hi):
             mid=lo+(hi-lo)//2
             ans=self.helper(piles,mid)
-            # print(ans,mid)
-            if ans>h:
+            if ans<=h:
+                res=min(res,mid)
+                hi=mid-1
+            else:
                 lo=mid+1
-            else :
-                hi=mid
-            
-            
-        return hi
+        return res
 
     def helper(self,piles,k):
         h=0
