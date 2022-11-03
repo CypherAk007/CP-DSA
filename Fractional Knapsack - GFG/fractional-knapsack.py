@@ -13,7 +13,7 @@ class Solution:
             vec.append(Items[i].weight)
             res.append(vec)
             
-        # sort acc to the per kg value for max value
+        # sort acc to the per kg value for max value dec order
         res.sort(key=lambda x: x[0],reverse=True)
         # print(res)
         
