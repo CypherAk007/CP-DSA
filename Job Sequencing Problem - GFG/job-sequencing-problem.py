@@ -51,22 +51,6 @@ class Solution:
         ans.append(count)
         ans.append(maxProfit)
         return ans
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        return [1,1]
-        
 
 
 #{ 
