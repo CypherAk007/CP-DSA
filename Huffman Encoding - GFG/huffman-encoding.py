@@ -6,6 +6,10 @@ class Node:
         self.left=None
         self.right=None
     
+    # Boolean comparator
+    # compares the current.data and next.data in heap
+    # so that we compare the data of the elements in the heap and 
+    # not elements itself(i.e pointers)
     def __lt__(self, nxt):
         return self.data < nxt.data
 
