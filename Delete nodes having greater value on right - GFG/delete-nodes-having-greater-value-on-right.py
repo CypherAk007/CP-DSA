@@ -9,36 +9,32 @@ class Node:
 '''
 class Solution:
     def compute(self,head):
-        while(True):
-            cur=self.find(head)
-            newhead=cur[0]
-            flag=cur[1]
-            head=newhead
-            if flag==False:
-                return head
-            if head==None:
-                return None
-    
-    def find(self,head):
-        #Your code here
-        dummy=prev=Node(0)
-        prev.next=head
-        flag=False
+        revhead=self.reversell(head)
+        maxi=float('-inf')
+        temp=revhead
+        prev=revhead
+        while(temp!=None):
+            if temp.data>=maxi:
+                maxi=temp.data
+                prev=temp
+                temp=temp.next
+            else:
+                prev.next=temp.next
+                temp=prev.next
+            
+        return self.reversell(revhead)
+        
+    def reversell(self,head):
+        prev=None
         cur=head
         nxt=head
         while(cur!=None):
             nxt=nxt.next
-            # if curr ele < next ele
-            if nxt!=None and nxt.data>cur.data:
-                cur.nxt=None
-                cur=nxt
-                prev.next=nxt
-                flag=True
-            # if curr ele>next ele
-            else:
-                prev=cur
-                cur=nxt
-        return [dummy.next,flag]
+            cur.next=prev
+            prev=cur
+            cur=nxt
+        head=prev
+        return head
 
 #{ 
  # Driver Code Starts
