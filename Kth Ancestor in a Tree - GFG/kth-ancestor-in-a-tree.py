@@ -1,5 +1,10 @@
 #User function Template for python3
 
+# PYTHON CODE WITH COMMENTS.
+# Approach
+# We Find the Node and move upwards(i.e goto respective node's Parent)
+# we do this till we find the kth parent/ancestor
+
 def kthAncestor(root,k, node):
     #code here
     par={}
@@ -8,13 +13,16 @@ def kthAncestor(root,k, node):
     
     while(k>0):
         if par.get(nth)!=None:
+            # we replace the nth value(node value) with parent of node.
             nth=par[nth]
             k-=1 
         else:
+            # if a node does not have parent then its root node
+            # we have reached the top and we can't go more further
             return -1
     return nth.data
         
-
+# Stores the parent in Map.
 def makeParent(root,d):
     q=[root]
     while(q):
@@ -26,6 +34,7 @@ def makeParent(root,d):
             d[n.right]=n
             q.append(n.right)
 
+# Used to find the "node" location/address
 def findNode(root,t):
     q=[root]
     while(q):
