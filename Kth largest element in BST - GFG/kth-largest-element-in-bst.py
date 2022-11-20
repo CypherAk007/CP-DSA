@@ -12,8 +12,7 @@ class Solution:
         #your code here
         l=[0]
         self.findLength(root,l)
-        ino=[]
-        return self.inorder(root,l[0]-k+1,0,ino)
+        return self.inorder(root,l[0]-k+1,0)
         
         
     def findLength(self,root,l):
@@ -23,7 +22,7 @@ class Solution:
         l[0]+=1
         self.findLength(root.right,l)
         
-    def inorder(self,root,k,c,ino):
+    def inorder(self,root,k,c):
         cur=root
         s=[]
         while(True):
@@ -37,10 +36,8 @@ class Solution:
                 c+=1 
                 if c==k:
                     return cur.data
-                # ino.append(cur.data)
                 cur=cur.right
-                
-        # return ino
+
         return -1
 
 
