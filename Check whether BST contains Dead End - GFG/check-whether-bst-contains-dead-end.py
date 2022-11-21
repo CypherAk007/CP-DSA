@@ -2,32 +2,15 @@
 # function should return true/false or 1/0
 def isdeadEnd(root):
     # Code here
-    d1={} #leaf nodes
-    d2={} #non leaf
-    d2[0]=1
-    inorder(root,d1,d2)
-    # print(d1,d2)
-    for i in d1:
-        # print(i,i+1,i-1)
-        if i+1 in d2 and i-1 in d2:
-            return 1
-    return 0
+    return helper(root,1,float('inf'))
 
-def inorder(root,d1,d2):
+def helper(root,mini,maxi):
     if root==None:
-        return None
-    
-    inorder(root.left,d1,d2)
-    if checkLeaf(root):
-        d1[root.data]=1
-    else:
-        d2[root.data]=1
-    inorder(root.right,d1,d2)
-    
-def checkLeaf(root):
-    if root.left==None and root.right==None:
+        return False
+    if mini==maxi:
         return True
-    return False
+    
+    return helper(root.left,mini,root.data-1) or helper(root.right,root.data+1,maxi)
 
 
 #{ 
