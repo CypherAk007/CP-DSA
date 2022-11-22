@@ -10,20 +10,16 @@ class Solution:
         for i in range(n):
             arr.append([price[i],i+1])
         arr.sort()
-        # print(arr)
         for i in range(n):
-            # if price[i]>k:
-            #     break
+
             if arr[i][1]*arr[i][0]<=k:
                 count+=arr[i][1]
-                summ+=arr[i][1]*arr[i][0]
                 k-=arr[i][1]*arr[i][0]
             else:
                 val=k//arr[i][0]
                 count+=val
-                summ+=val*arr[i][0]
                 k-=val*arr[i][0]
-            # print(i,k,price[i],(i+1)*price[i],summ,count)
+            
         return count
                 
 
