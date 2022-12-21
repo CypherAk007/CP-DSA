@@ -5,19 +5,25 @@ def wordBreak(line, dictionary):
     d={}
     for i in dictionary:
         d[i]=1 
-    return helper(0,line,d)
+    dp=[-1]*len(line)
+    return helper(0,line,d,dp)
     
-def helper(pos,s,d):
+def helper(pos,s,d,dp):
     # bc
     if pos == len(s):
         return True
     
+    if dp[pos]!=-1:
+        return dp[pos]
+    
     temp=''
     for i in range(pos,len(s)):
         temp+=s[i]
-        if d.get(temp)!=None and helper(i+1,s,d)==True:
-            return True
-    return False
+        if d.get(temp)!=None and helper(i+1,s,d,dp)==True:
+            dp[pos]=True
+            return dp[pos]
+    dp[pos]=False
+    return dp[pos]
 
 
 #{ 
