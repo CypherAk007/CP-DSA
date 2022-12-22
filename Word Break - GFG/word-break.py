@@ -5,8 +5,9 @@ def wordBreak(line, dictionary):
     d={}
     for i in dictionary:
         d[i]=1 
-    dp=[-1]*len(line)
-    return helper(0,line,d,dp)
+    # dp=[-1]*len(line)
+    # return helper(0,line,d,dp)
+    return tabhelper(line,d)
     
 def helper(pos,s,d,dp):
     # bc
@@ -24,6 +25,19 @@ def helper(pos,s,d,dp):
             return dp[pos]
     dp[pos]=False
     return dp[pos]
+    
+def tabhelper(s,d):
+    n=len(s)
+    dp=[False]*(n+1)
+    # bc
+    dp[n]=True
+    for pos in range(n-1,-1,-1):
+        temp=''
+        for i in range(pos,len(s)):
+            temp+=s[i]
+            if d.get(temp)!=None and dp[i+1]==True:
+                dp[pos]=True
+    return dp[0]
 
 
 #{ 
